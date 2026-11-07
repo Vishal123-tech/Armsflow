@@ -1,0 +1,24 @@
+# Original third-party sources stay local until reuse terms are addressed.
+data/raw/
+data/processed/
+tests/.tmp/
+work/
+reports/analysis_results.json
+node_modules/
+# Local environments and derived runtime files
+.venv/
+__pycache__/
+*.pyc
+.env
+.env.*
+
+# Full source map and machine-generated validation paths remain local.
+web/static/india-soi.json
+reports/*.json
+docs/*validation*.json
+docs/map_optimization.json
+*.log
+*.pem
+*.key
+.DS_Store
+Thumbs.db

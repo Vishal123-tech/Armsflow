@@ -1,0 +1,8 @@
+{
+  "name":"armsflow-local-web",
+  "private":true,
+  "type":"module",
+  "scripts":{"build":"node scripts/build_frontend.mjs"},
+  "dependencies":{"three":"0.187.0","d3-geo":"3.1.2","topojson-client":"3.1.0","world-atlas":"2.0.2"},
+  "devDependencies":{"esbuild":"0.28.2"}
+}

@@ -1,0 +1,190 @@
+{
+  "project": "ArmsFlow",
+  "stage": "1 - Source collection",
+  "scope": "India pilot, 2010-2025",
+  "manifest_created_at_utc": "2026-11-06T10:33:57.085164+00:00",
+  "sources": [
+    {
+      "id": "sipri_india_annual",
+      "title": "Official annual supplier TIV export",
+      "publisher": "SIPRI",
+      "url": "https://armstransfers.sipri.org/ArmsTransfer/ImportExport",
+      "local_path": "data/raw/sipri_india_supplier_tiv_2010_2025.csv",
+      "retrieved_date": "2026-11-06",
+      "bytes": 2168,
+      "sha256": "8323d5569b75072013419d0a267f320273e2eef647ca96203a0242806805f123",
+      "capture_method": "Browser UI Download as CSV; unmodified bytes",
+      "query_filters": {
+        "recipient": "India (IND)",
+        "year_range_1": [
+          2010,
+          2025
+        ],
+        "report_with": "Imported weapons",
+        "summarize_by": "Country",
+        "sort_by": "Ranking",
+        "supplier": "All",
+        "region": "All"
+      },
+      "raw_file_modified": false,
+      "redistribution": "Publisher retains rights; private research snapshot, no redistribution licence granted by this project",
+      "source_generated_timestamp_verbatim": "Data generated: 6 Nov 2026 11:27:28 AM",
+      "source_timestamp_timezone": "Not specified by publisher",
+      "units": "TIV fields: millions of SIPRI TIV; register quantities: equipment units per source record",
+      "dataset_edition": "SIPRI 1950-2025 database, March 2026 update, retrieved November 2026"
+    },
+    {
+      "id": "sipri_india_register",
+      "title": "Official annual delivery register export",
+      "publisher": "SIPRI",
+      "url": "https://armstransfers.sipri.org/ArmsTransfer/TransferRegister",
+      "local_path": "data/raw/sipri_india_transfer_register_2010_2025.csv",
+      "retrieved_date": "2026-11-06",
+      "bytes": 82705,
+      "sha256": "600e00e867f73705d308570e6ca4c32d31d704e73ebd8f4c1afd32ba0130963d",
+      "capture_method": "Browser UI Download as CSV; unmodified bytes",
+      "query_filters": {
+        "recipient": "India (IND)",
+        "delivery_year_range": [
+          2010,
+          2025
+        ],
+        "supplier": "All",
+        "weapon_category": "All",
+        "status": "All",
+        "order_by": "Buyer",
+        "deliveries_broken_down_by_year": true,
+        "only_deliveries_in_year_range": true
+      },
+      "raw_file_modified": false,
+      "redistribution": "Publisher retains rights; private research snapshot, no redistribution licence granted by this project",
+      "source_generated_timestamp_verbatim": "Data generated: 6 Nov 2026 11:29:20 AM",
+      "source_timestamp_timezone": "Not specified by publisher",
+      "units": "TIV fields: millions of SIPRI TIV; register quantities: equipment units per source record",
+      "dataset_edition": "SIPRI 1950-2025 database, March 2026 update, retrieved November 2026"
+    },
+    {
+      "id": "sipri_india_periods",
+      "title": "Official three-period supplier TIV export",
+      "publisher": "SIPRI",
+      "url": "https://armstransfers.sipri.org/ArmsTransfer/ImportExport",
+      "local_path": "data/raw/sipri_india_supplier_tiv_comparison_periods.csv",
+      "retrieved_date": "2026-11-06",
+      "bytes": 2493,
+      "sha256": "8854e10d77c48a66c7fa363c43f9ff88e55629b2c2babddbc6f2f8b809527199",
+      "capture_method": "Browser UI Download as CSV; unmodified bytes",
+      "query_filters": {
+        "recipient": "India (IND)",
+        "year_ranges": [
+          [
+            2011,
+            2015
+          ],
+          [
+            2016,
+            2020
+          ],
+          [
+            2021,
+            2025
+          ]
+        ],
+        "report_with": "Imported weapons",
+        "summarize_by": "Country",
+        "sort_by": "Ranking",
+        "supplier": "All",
+        "region": "All"
+      },
+      "raw_file_modified": false,
+      "redistribution": "Publisher retains rights; private research snapshot, no redistribution licence granted by this project",
+      "source_generated_timestamp_verbatim": "Data generated: 6 Nov 2026 11:30:03 AM",
+      "source_timestamp_timezone": "Not specified by publisher",
+      "units": "TIV fields: millions of SIPRI TIV; register quantities: equipment units per source record",
+      "dataset_edition": "SIPRI 1950-2025 database, March 2026 update, retrieved November 2026"
+    },
+    {
+      "id": "sipri_trends_2025",
+      "title": "Trends in International Arms Transfers, 2025; March 2026; pp. 6 and 9 checked",
+      "publisher": "SIPRI",
+      "url": "https://www.sipri.org/sites/default/files/2026-03/fs_2603_at_2025.pdf",
+      "local_path": "data/raw/sipri_trends_2025.pdf",
+      "retrieved_date": "2026-11-06",
+      "bytes": 407172,
+      "sha256": "6ecae20127ef9daf1f7b97cfe0c63533dd3d8bb2880347adbd7a583fcae232ea",
+      "capture_method": "Direct download from publisher; unmodified bytes",
+      "query_filters": null,
+      "raw_file_modified": false,
+      "redistribution": "Publisher retains rights; private research snapshot, no redistribution licence granted by this project"
+    },
+    {
+      "id": "sipri_methods",
+      "title": "Source definitions and methodology",
+      "publisher": "SIPRI",
+      "url": "https://www.sipri.org/databases/armstransfers/sources-and-methods",
+      "local_path": "data/raw/sipri_sources_and_methods.html",
+      "retrieved_date": "2026-11-06",
+      "bytes": 70123,
+      "sha256": "d2f0b864658c76189142dacfa63d72d4765031610f0a361247732dcd52dab0c6",
+      "capture_method": "Direct download from publisher; unmodified bytes",
+      "query_filters": null,
+      "raw_file_modified": false,
+      "redistribution": "Publisher retains rights; private research snapshot, no redistribution licence granted by this project"
+    },
+    {
+      "id": "sipri_terms",
+      "title": "Source reuse terms snapshot",
+      "publisher": "SIPRI",
+      "url": "https://www.sipri.org/about/terms-and-conditions",
+      "local_path": "data/raw/sipri_terms_and_conditions.html",
+      "retrieved_date": "2026-11-06",
+      "bytes": 61373,
+      "sha256": "4aaa3846bb516a6718648c380cec1c841e5c8f410fdc464c9c72161b02cd4791",
+      "capture_method": "Direct download from publisher; unmodified bytes",
+      "query_filters": null,
+      "raw_file_modified": false,
+      "redistribution": "Publisher retains rights; private research snapshot, no redistribution licence granted by this project"
+    },
+    {
+      "id": "pib_mod_review_2022",
+      "title": "Ministry of Defence - Year End Review 2022; 17 December 2022; Rafale paragraph",
+      "publisher": "Government of India, Ministry of Defence / PIB",
+      "url": "https://www.pib.gov.in/Pressreleasepage.Aspx?Lang=2&PRID=1884353&Reg=3",
+      "local_path": "data/raw/pib_mod_year_end_review_2022.html",
+      "retrieved_date": "2026-11-06",
+      "bytes": 1184900,
+      "sha256": "289efc1736501afc858798cd6f67d3deaae88e5849cff704b04d818fc5af7196",
+      "capture_method": "Direct download from publisher; unmodified bytes",
+      "query_filters": null,
+      "raw_file_modified": false,
+      "redistribution": "Publisher retains rights; private research snapshot, no redistribution licence granted by this project"
+    },
+    {
+      "id": "dassault_contract_2016",
+      "title": "Rafale India contract announcement, 23 September 2016, p. 1",
+      "publisher": "Dassault Aviation",
+      "url": "https://www.dassault-aviation.com/wp-content/blogs.dir/2/files/2016/09/PR_Dassault_Rafale-Signature_India.pdf",
+      "local_path": "data/raw/dassault_rafale_india_contract_2016.pdf",
+      "retrieved_date": "2026-11-06",
+      "bytes": 279106,
+      "sha256": "f73eb4c2bd2b498efad2056dcf1c72d9979036f7d2a6de3e90533544bc9c89e1",
+      "capture_method": "Direct download from publisher; unmodified bytes",
+      "query_filters": null,
+      "raw_file_modified": false,
+      "redistribution": "Publisher retains rights; private research snapshot, no redistribution licence granted by this project"
+    },
+    {
+      "id": "dassault_clarification_2018",
+      "title": "Rafale India contract clarification, 21 September 2018",
+      "publisher": "Dassault Aviation",
+      "url": "https://www.dassault-aviation.com/wp-content/blogs.dir/2/files/2018/09/PR_Dassault-Aviation_Rafale-India.pdf",
+      "local_path": "data/raw/dassault_rafale_india_clarification_2018.pdf",
+      "retrieved_date": "2026-11-06",
+      "bytes": 155969,
+      "sha256": "ef1389c4030244f293d48b18f93ceb008cc96aff7137f7cf03d6adcfe5070b2a",
+      "capture_method": "Direct download from publisher; unmodified bytes",
+      "query_filters": null,
+      "raw_file_modified": false,
+      "redistribution": "Publisher retains rights; private research snapshot, no redistribution licence granted by this project"
+    }
+  ]
+}

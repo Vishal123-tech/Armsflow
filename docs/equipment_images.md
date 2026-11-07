@@ -1,0 +1,6 @@
+# Equipment images
+T-90S: cell105, Indian Army T-90.jpg, CC BY 2.0, https://commons.wikimedia.org/wiki/File:Indian_Army_T-90.jpg and https://creativecommons.org/licenses/by/2.0/. Downloaded current Commons version, no additional editing.
+Su-30MK: representative Su-30MKI variant photo by Sanil Nath, CC BY 4.0, https://commons.wikimedia.org/wiki/File:Sukhoi_Su-30MKi.jpg and https://creativecommons.org/licenses/by/4.0/. Downloaded 960px thumbnail, no additional editing. Explicit variant caption avoids claiming exact designation equivalence.
+Images retrieved 7 November 2026. Cards link to author/source and license. Remaining equipment uses original code-native category illustrations explicitly labeled as not exact models. Photographs illustrate equipment and do not prove individual transfers. Supplier cards keep the full-snapshot delivery basis visible.
+
+Update: 20 additional US equipment image cards (19 photographs and one sourced APKWS illustration) now use sourced images. Full source, author, license, caption and variant notes are in web/frontend/photos.json. APS-153, CBU-97 and two unspecified engine records have no verified photograph and are explicitly marked; generic icons removed. Images illustrate equipment, not proof of a particular shipment.

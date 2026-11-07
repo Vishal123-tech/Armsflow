@@ -1,0 +1,56 @@
+{
+  "project": "ArmsFlow",
+  "updated_date": "2026-11-07",
+  "user_instruction": "Ask before moving to each next step.",
+  "current_step": 6,
+  "approval_required_for_next_step": 7,
+  "steps": [
+    {
+      "number": 1,
+      "name": "Collect authentic source data",
+      "status": "complete_for_india_pilot",
+      "scope": "India 2010-2025; nine original source files and documented verification"
+    },
+    {
+      "number": 2,
+      "name": "Clean data and build SQL database",
+      "status": "complete_for_india_pilot",
+      "scope": "DuckDB, reproducible cleaning pipeline, provenance, 8 passing tests and 14 build checks"
+    },
+    {
+      "number": 3,
+      "name": "Calculate supplier shares and historical changes",
+      "status": "complete_for_india_pilot",
+      "scope": "29 periods, 18 comparisons, 12 metric checks, 18 total passing tests, charts and executed analysis notebook"
+    },
+    {
+      "number": 4,
+      "name": "Build website and 3D equipment viewer",
+      "status": "complete_for_india_pilot",
+      "scope": "Local website, 149 searchable records, four illustrative 3D models, supplier analysis, source references; desktop smoke review and four web tests passed; mobile device QA pending"
+    },
+    {
+      "number": 5,
+      "name": "ML for unusual supplier changes",
+      "status": "complete_experimental_three_recipient_pilot",
+      "prerequisite": "Three-recipient annual coverage validated; broader global coverage still required for generalization",
+      "scope": "Isolation Forest; 293 training and 152 review transitions; 7 review flags; temporal split, baseline and seed-stability checks; 9 ML/web tests passed"
+    },
+    {
+      "number": 6,
+      "name": "ML for similar supplier profiles",
+      "status": "complete_experimental_global_profiles",
+      "scope": "80 eligible profiles from 4,761 official SIPRI global annual delivery rows, 2021-2025; Hellinger nearest-neighbor retrieval; leave-year-out and cosine sensitivity; 14 focused tests passed"
+    },
+    {
+      "number": 7,
+      "name": "Integrate and test",
+      "status": "not_started"
+    },
+    {
+      "number": 8,
+      "name": "Deploy and prepare portfolio demo",
+      "status": "not_started"
+    }
+  ]
+}

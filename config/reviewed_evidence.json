@@ -1,0 +1,12 @@
+{
+  "claims": [
+    {"claim_id":"rafale_programme_deliveries","source_id":"pib_mod_review_2022","deal_source_id":"sipri_india_register","sipri_deal_id":"58668","field_name":"programme_deliveries_by_2022_12","value_text":"36","unit":"aircraft","locator":"Rafale paragraph, Ministry of Defence Year End Review 2022, 17 December 2022","note":"Completed programme deliveries; does not establish current inventory or each annual split."},
+    {"claim_id":"rafale_contract_date","source_id":"dassault_contract_2016","deal_source_id":"sipri_india_register","sipri_deal_id":"58668","field_name":"contract_signed_date","value_text":"2016-09-23","unit":"date","locator":"Page 1, dated contract announcement","note":"Separate primary-source claim; does not overwrite SIPRI's exported order year."},
+    {"claim_id":"rafale_offset_context","source_id":"dassault_clarification_2018","deal_source_id":"sipri_india_register","sipri_deal_id":"58668","field_name":"offset_context","value_text":"Offsets and aircraft parts manufacturing described","unit":"text","locator":"Page 1, items 1 and 2","note":"Not evidence that these 36 complete aircraft were assembled in India."}
+  ],
+  "issues": [
+    {"issue_id":"rafale_order_year","source_id":"sipri_india_register","sipri_deal_id":"58668","field_name":"order_year","issue_type":"source_conflict","related_claim_id":"rafale_contract_date","description":"Exported order year is 2017; manufacturer contract announcement is dated 2016-09-23. Preserve both and review before presenting a single order date."},
+    {"issue_id":"rafale_local_production","source_id":"sipri_india_register","sipri_deal_id":"58668","field_name":"local_production_reported","issue_type":"interpretation_pending","related_claim_id":"rafale_offset_context","description":"The export's Yes flag must not be treated as proof of local assembly of complete aircraft."},
+    {"issue_id":"sipri_estimate_definition","source_id":"sipri_india_register","sipri_deal_id":null,"field_name":"sipri_estimate_raw","issue_type":"definition_pending","related_claim_id":null,"description":"Keep this export field raw; its definition is unresolved. Do not use it as a confidence score or analytical TIV measure."}
+  ]
+}

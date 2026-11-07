@@ -1,0 +1,14 @@
+{
+  "source_id": "sipri_global_register_2021_2025",
+  "publisher": "SIPRI Arms Transfers Database",
+  "url": "https://armstransfers.sipri.org/ArmsTransfer/TransferRegister",
+  "retrieved": "2026-11-07",
+  "path": "data/raw/sipri_global_transfer_register_2021_2025.csv",
+  "sha256": "63d8e809b7f98b803cc9fc1bea45dad36240b2028328b176153cb6428c1bbed3",
+  "filters": "All recipients and suppliers; 2021-2025; deliveries broken down by year; only deliveries in range",
+  "rows": 4761,
+  "source_generated_at": "7 Nov 2026 1:49:55 PM (source timezone unspecified)",
+  "original_download_filename": "trade-register (1).csv",
+  "register_schema": "annual deliveries, 17 columns",
+  "validation_report": "reports/similarity_validation.json"
+}

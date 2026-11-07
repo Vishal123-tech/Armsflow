@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore India's historical weapons imports, inspect illustrative 3D equipment and trace supplier relationships using SIPRI data.">
+  <title>ArmsFlow — Weapons & supplier intelligence</title>
+  <link rel="icon" href="/static/mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/static/style.css">
+  <script type="module" src="/static/app.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <a class="brand" href="#explorer" aria-label="ArmsFlow home"><svg viewBox="0 0 42 34" aria-hidden="true"><path d="M1 2h13l7 6 7-6h13l-7 7H26l-5 4-5-4H8zM8 13h8l5 4 5-4h8l-7 7h-3l-3 3-3-3h-3zM15 24h4l2 2 2-2h4l-6 7z"/></svg><span>ARMSFLOW</span><span class="brand-divider"></span></a>
+  <nav aria-label="Main navigation">
+    <a href="#explorer" data-nav="explorer" class="active">3D explorer</a>
+    <a href="#suppliers" data-nav="suppliers">Supplier network</a>
+    <a href="#compare" data-nav="compare">Compare periods</a>
+    <a href="#insights" data-nav="insights">ML insights</a>
+    <a href="#similarity" data-nav="similarity">Similar countries</a>
+    <a href="#sources" data-nav="sources">Sources</a>
+  </nav>
+  <span class="scope-badge"><span class="status-dot"></span>INDIA PILOT <span>2010–2025</span></span>
+</header>
+<main id="main">
+  <div id="global-error" class="error-banner" role="alert" hidden></div>
+  <section id="view-explorer" class="view" aria-labelledby="explorer-heading">
+    <div class="page-heading"><div><div class="eyebrow">EQUIPMENT / TRANSFERS / PROVENANCE</div><h1 id="explorer-heading">Weapons explorer<span class="title-dot">.</span></h1></div><button class="button outline" id="open-library">Browse equipment <span class="count-badge" id="equipment-count">149</span> <span aria-hidden="true">↗</span></button></div>
+    <div class="explorer-layout">
+      <div class="viewer-panel" id="viewer-panel">
+        <div class="viewer-top"><span class="viewer-category" id="viewer-category">01 / AIRCRAFT</span><span class="viewer-badge"><span class="status-dot"></span>INTERACTIVE 3D</span></div>
+        <div id="model-canvas" tabindex="0" role="application" aria-label="Interactive equipment model. Drag to rotate, scroll to zoom, arrow keys to rotate. Use the view buttons for preset angles."></div>
+        <div id="viewer-status" class="viewer-status" role="status">Preparing the model…</div>
+        <div class="viewer-watermark" id="viewer-watermark" aria-hidden="true">RAFALE</div>
+        <div class="viewer-side-controls"><button id="auto-rotate" class="icon-button" aria-label="Auto rotate model" aria-pressed="false" title="Auto rotate">⟳</button><button id="wireframe" class="icon-button" aria-label="Toggle wireframe" aria-pressed="false" title="Wireframe">◇</button><button id="zoom-in" class="icon-button" aria-label="Zoom in" title="Zoom in">+</button><button id="zoom-out" class="icon-button" aria-label="Zoom out" title="Zoom out">−</button><button id="fullscreen" class="icon-button" aria-label="Fullscreen viewer" title="Fullscreen">⛶</button></div>
+        <div class="viewer-bottom"><div class="view-presets" role="group" aria-label="Model angle"><button data-angle="perspective" class="active">Perspective</button><button data-angle="top">Top</button><button data-angle="side">Side</button><button id="reset-view" aria-label="Reset model view">↺</button></div><span class="drag-hint">DRAG TO ROTATE <span>·</span> SCROLL TO ZOOM</span></div>
+        <div class="model-note">Illustrative exterior · not a technical replica</div>
+      </div>
+      <aside class="equipment-panel" id="equipment-panel" aria-live="polite"><div class="skeleton">Loading equipment record…</div></aside>
+    </div>
+    <div class="section-heading compact"><div><span class="eyebrow">INSPECT THE EQUIPMENT</span><h2>Four perspectives on the arsenal</h2></div><span class="muted small">Original 3D studies · verified transfer records</span></div>
+    <div class="featured-grid" id="featured-grid"></div>
+    <section class="history-section" id="history-section" hidden aria-labelledby="history-heading"><div class="section-heading"><div><div class="eyebrow">SOURCE RECORDS</div><h2 id="history-heading">Delivery history</h2></div><button id="close-history" class="text-button">Close ×</button></div><div id="history-content"></div></section>
+  </section>
+
+  <section id="view-suppliers" class="view" hidden aria-labelledby="suppliers-heading">
+    <div class="page-heading"><div><div class="eyebrow">THE RELATIONSHIPS BEHIND THE EQUIPMENT</div><h1 id="suppliers-heading">Supplier network<span class="title-dot">.</span></h1></div><label class="select-label">Import period <select id="supplier-period" aria-label="Supplier network period"></select></label></div>
+    <div class="metric-strip" id="supplier-metrics"></div>
+    <div class="network-layout"><div class="panel map-panel"><div class="panel-heading"><h2>All roads lead to India</h2><span class="eyebrow">RECORDED IMPORTS</span></div><svg id="network-map" viewBox="0 0 900 490" role="img" aria-label="World map showing suppliers to India"></svg><div class="map-caption"><span><i class="legend-dot india-dot"></i> Recipient</span><span><i class="legend-dot supplier-dot"></i> Supplier</span><span>Lines show relationships, not shipping routes. India boundary: <a href="https://surveyofindia.gov.in/pages/outline-maps-of-india" target="_blank" rel="noopener">Survey of India</a> (Government of India depiction).</span></div></div><div class="panel supplier-panel"><div class="panel-heading"><h2>Import share</h2><span class="small muted">BY TIV</span></div><div id="supplier-ranking"></div></div></div>
+    <div class="panel timeline-panel"><div class="panel-heading"><div><h2>How the relationships changed</h2><p class="muted small">Annual share of recorded import TIV · 2010–2025</p></div><div class="chart-legend" id="timeline-legend"></div></div><div id="timeline-chart"></div></div>
+    <p class="data-footnote">TIV measures the volume of major-arms transfers. It is not a price or a count of weapons. Unknown suppliers remain included.</p>
+  </section>
+
+  <section id="view-compare" class="view" hidden aria-labelledby="compare-heading">
+    <div class="page-heading"><div><div class="eyebrow">READ THE LONGER-TERM SHIFT</div><h1 id="compare-heading">A changing supplier mix<span class="title-dot">.</span></h1></div></div>
+    <div class="comparison-controls panel"><label class="select-label">Earlier period<select id="compare-before"></select></label><span class="compare-arrow" aria-hidden="true">→</span><label class="select-label">Later period<select id="compare-after"></select></label><span class="muted small">Equal-length periods.<br>Shares calculated from total delivered TIV.</span></div>
+    <div class="metric-strip" id="comparison-metrics"></div>
+    <div class="panel comparison-panel"><div class="panel-heading"><h2>Gains and declines</h2><span class="eyebrow">PERCENTAGE-POINT CHANGE</span></div><div id="comparison-chart"></div></div>
+    <details class="table-details"><summary>View all supplier comparisons</summary><div id="comparison-table" class="table-scroll"></div></details>
+    <p class="data-footnote">Supplier-mix distance ranges from 0 (identical shares) to 1 (no overlap). It describes composition, not political causes.</p>
+  </section>
+
+  <section id="view-insights" class="view" hidden aria-labelledby="insights-heading">
+    <div class="page-heading"><div><div class="eyebrow">STEP 5 / EXPERIMENTAL ML</div><h1 id="insights-heading">Unusual supplier changes<span class="title-dot">.</span></h1><p class="muted">Historical patterns worth investigating. Not forecasts or explanations of political intent.</p></div></div>
+    <div class="ml-filters"><label>Recipient <select id="ml-recipient"><option value="india">India</option><option value="russia">Russia</option><option value="united_states">United States</option></select></label><label>Review year <select id="ml-year"><option value="all">2021–2025</option><option>2021</option><option>2022</option><option>2023</option><option>2024</option><option>2025</option></select></label><label><input type="checkbox" id="ml-flags-only"> Review flags only</label></div>
+    <div id="ml-summary" class="metric-strip"></div>
+    <div id="ml-results" aria-live="polite"></div>
+    <div id="ml-method" class="panel ml-method"></div>
+  </section>
+
+  <section id="view-similarity" class="view" hidden aria-labelledby="similarity-heading">
+    <div class="page-heading"><div><div class="eyebrow">STEP 6 / SUPPLIER PROFILE EXPLORER</div><h1 id="similarity-heading">Who buys from similar suppliers<span class="title-dot">?</span></h1><p class="muted">Compare recorded import mixes across countries and territories. 2021–2025.</p></div></div>
+    <div class="ml-filters"><label>Compare country <select id="similarity-recipient"><option>India</option></select></label><span class="muted small">Global SIPRI delivery register · unsupervised nearest neighbors</span></div>
+    <div id="similarity-summary" class="metric-strip"></div>
+    <div id="similarity-matches" aria-live="polite"></div>
+    <div id="similarity-comparison" class="panel similarity-comparison" aria-live="polite"></div>
+    <div id="similarity-method" class="panel ml-method"></div>
+  </section>
+
+  <section id="view-sources" class="view" hidden aria-labelledby="sources-heading">
+    <div class="page-heading"><div><div class="eyebrow">OPEN DATA. VISIBLE EVIDENCE.</div><h1 id="sources-heading">Know the source<span class="title-dot">.</span></h1></div><span class="scope-badge">SNAPSHOT · 06 NOV 2026</span></div>
+    <div class="method-grid"><article class="panel"><span class="method-number">01</span><h2>Historical deliveries</h2><p>Quantities describe recorded deliveries in 2010–2025. They do not describe today's operational inventory. Estimates are marked at the record level.</p></article><article class="panel"><span class="method-number">02</span><h2>Comparable transfer volume</h2><p>SIPRI's trend-indicator value (TIV) measures transfer volume. Supplier shares use summed delivery TIV, including unknown suppliers.</p></article><article class="panel"><span class="method-number">03</span><h2>Illustrative 3D exteriors</h2><p>Four original models help you explore equipment types. They are visual studies, not technical replicas. The source records establish the quantities.</p></article></div>
+    <div class="section-heading"><h2>Source registry</h2><span class="small muted">Original publisher links</span></div><div id="source-registry" class="source-registry"></div>
+    <details class="panel review-notes"><summary>Open data-quality notes <span class="count-badge">3</span></summary><div id="source-issues"></div></details>
+    <div class="source-bottom"><p>India pilot only. Source material retains its publisher's rights. This is a local research project.</p><a href="/static/THIRD_PARTY_NOTICES.txt" target="_blank" rel="noopener">Software & map credits ↗</a></div>
+  </section>
+</main>
+<footer class="site-footer"><span class="footer-brand">ARMSFLOW <span>/</span> FOLLOW THE TRANSFER</span><span><span class="status-dot"></span> SIPRI DATA · 2010–2025 <span class="footer-separator">/</span> HISTORICAL DELIVERIES</span></footer>
+<dialog id="library-dialog" aria-labelledby="library-heading"><div class="dialog-heading"><div><div class="eyebrow">INDIA / 2010–2025</div><h2 id="library-heading">Equipment library</h2></div><button id="close-library" class="icon-button" aria-label="Close equipment library">×</button></div><div class="library-controls"><label class="search-field"><span aria-hidden="true">⌕</span><input id="library-search" type="search" placeholder="Search equipment or description…" aria-label="Search equipment" maxlength="80"></label><select id="library-category" aria-label="Equipment category"><option value="">All categories</option></select><label class="checkbox-label"><input type="checkbox" id="library-models">3D available</label></div><div class="library-status" id="library-status" role="status"></div><div id="library-list" class="library-list"></div></dialog>
+<noscript><p class="error-banner">Enable JavaScript to use the 3D viewer and explore the data.</p></noscript>
+</body>
+</html>
