@@ -30,6 +30,8 @@ Then build the database and derived analyses:
 
 Open http://127.0.0.1:8000. The server runs locally; publishing this GitHub repository does not deploy the website. Photographs and maps retain their respective licenses; see [image credits](docs/equipment_images.md), [map source](docs/india_boundary.md) and frontend notices. No blanket license is granted over third-party content.
 
+![Interactive supplier network](docs/supplier-network.png)
+
 ![Supplier profile comparison](docs/similar-countries.png)
 
 ## What has been collected
