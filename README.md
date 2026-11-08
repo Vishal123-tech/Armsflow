@@ -1,9 +1,13 @@
 # ArmsFlow — weapons and supplier explorer
 
-Steps 1–7 are implemented: equipment exploration, interactive supplier maps, unusual-change detection, similar-country profiles and local integration checks. Step 8 (deployment and portfolio demo) awaits approval. See [Step 7 validation](docs/step7_validation.md).
+Steps 1–7 are implemented: equipment exploration, interactive supplier maps, unusual-change detection, similar-country profiles and local integration checks. Step 8 is complete: [open the live demo](https://armsflow-di1q.onrender.com). See [Step 7 validation](docs/step7_validation.md).
 
 Run `start_armsflow.cmd` and open http://127.0.0.1:8000. See [website guide](docs/step4_website.md) for setup, features and validation limits.
 
+
+**Live website:** [https://armsflow-di1q.onrender.com](https://armsflow-di1q.onrender.com)
+
+Hosted on Render Free; the first visit after inactivity may take about a minute to wake.
 
 ## Public repository setup
 
@@ -86,6 +90,6 @@ This pilot supports India's historical supplier charts and sourced equipment pag
 
 Step 2 loaded the records into SQL with source references, estimate flags, missing-value statuses and reviewed identity mappings. Step 3 adds supplier shares, top-three concentration, HHI, percentage-point changes and supplier-mix distance. All 18 automated tests, 14 base-build checks and 12 metric checks pass. The documented field conflicts remain open; cleaning does not turn uncertain source claims into confirmed facts.
 
-The local website and 3D equipment viewer are implemented. Step 5 now includes experimental ML insights for India, Russia and the US. See [Step 5 model and validation](docs/step5_ml.md) for reproduction, temporal evaluation and limitations. Step 6 now compares 80 qualified country/territory supplier profiles using a newly collected global 2021–2025 SIPRI register and unsupervised nearest neighbors. See [Step 6 methodology and validation](docs/step6_similarity.md). Step 7 local integration and responsive-browser checks are complete; see [validation and limitations](docs/step7_validation.md). Step 8 awaits approval.
+The local website and 3D equipment viewer are implemented. Step 5 now includes experimental ML insights for India, Russia and the US. See [Step 5 model and validation](docs/step5_ml.md) for reproduction, temporal evaluation and limitations. Step 6 now compares 80 qualified country/territory supplier profiles using a newly collected global 2021–2025 SIPRI register and unsupervised nearest neighbors. See [Step 6 methodology and validation](docs/step6_similarity.md). Step 7 local integration and responsive-browser checks are complete; see [validation and limitations](docs/step7_validation.md). Step 8 is deployed on [Render Free](https://armsflow-di1q.onrender.com).
 
 The downloaded source files retain their publishers' rights. Raw snapshots are excluded by `.gitignore`; raw data files are not included in this public repository. Review the [SIPRI reuse terms](https://www.sipri.org/about/terms-and-conditions) before including data in a public deployment.

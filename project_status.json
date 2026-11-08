@@ -2,8 +2,8 @@
   "project": "ArmsFlow",
   "updated_date": "2026-11-08",
   "user_instruction": "Ask before moving to each next step.",
-  "current_step": 7,
-  "approval_required_for_next_step": 8,
+  "current_step": 8,
+  "approval_required_for_next_step": null,
   "steps": [
     {
       "number": 1,
@@ -51,7 +51,9 @@
     {
       "number": 8,
       "name": "Deploy and prepare portfolio demo",
-      "status": "not_started"
+      "status": "complete_render_free",
+      "scope": "Public Render Free deployment verified with health endpoint, supplier map, equipment details, 3D explorer, ML insights and similarity profiles. Portfolio walkthrough documented. Free-tier cold starts apply."
     }
-  ]
+  ],
+  "deployment_url": "https://armsflow-di1q.onrender.com"
 }
