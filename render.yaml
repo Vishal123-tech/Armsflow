@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: armsflow
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements-deploy.txt && python scripts/restore_runtime.py
+    startCommand: gunicorn 'web:create_app()' --bind 0.0.0.0:$PORT --workers 1 --threads 2 --timeout 120
+    healthCheckPath: /api/health
+    autoDeployTrigger: off

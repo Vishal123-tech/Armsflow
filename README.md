@@ -1,13 +1,13 @@
 # ArmsFlow — weapons and supplier explorer
 
-Steps 1–6 are implemented: equipment exploration, interactive supplier maps, unusual-change detection and similar-country profiles. Step 7 (full integration and mobile testing) is pending.
+Steps 1–7 are implemented: equipment exploration, interactive supplier maps, unusual-change detection, similar-country profiles and local integration checks. Step 8 (deployment and portfolio demo) awaits approval. See [Step 7 validation](docs/step7_validation.md).
 
 Run `start_armsflow.cmd` and open http://127.0.0.1:8000. See [website guide](docs/step4_website.md) for setup, features and validation limits.
 
 
 ## Public repository setup
 
-This repository contains the application source, build scripts, documentation, attributed visual assets and screenshots. **The original source downloads, processed data, DuckDB database and local Python environment are not included.** A fresh clone needs locally collected data before the analytical pages can run. This is a research portfolio project, not a deployed live service.
+This repository contains the application source, build scripts, documentation, attributed visual assets and screenshots. **Original source downloads, the full research database and local Python environment are not included.** A compact, read-only runtime snapshot is included under `deployment/` for the educational demo. Restore it with `python scripts/restore_runtime.py`. Full research reproduction still requires collecting the sources described below. See [Render deployment](docs/step8_deployment.md).
 
 ```powershell
 python -m venv .venv
@@ -62,13 +62,13 @@ One Rafale order-year conflict and an unresolved production-field interpretation
 - [Source manifest](data/source_manifest.json): original URLs, export filters, retrieval date, units, sizes and hashes.
 - [Collection instructions](docs/source_collection.md): how to reproduce the downloads.
 - [Data dictionary](docs/data_dictionary.md): source fields and their meaning.
-- [Validation results](docs/source_validation.json): machine-readable counts and checks.
+- Validation results (`docs/source_validation.json`, generated locally): machine-readable counts and checks.
 - [Quality notes](docs/data_quality_notes.md): estimates, source conflicts and limits.
 - [Database guide](docs/step2_database.md): Step 2 implementation, setup and SQL usage.
 - [Database schema](sql/schema.sql) and [example SQL](sql/explore_data.sql).
-- [Step 2 validation](docs/step2_validation.json): final build checks, row counts and fingerprints.
+- Step 2 validation (`docs/step2_validation.json`, generated locally): final build checks, row counts and fingerprints.
 - [Step 3 analysis](docs/step3_analysis.md): findings, formulas, charts and reproduction steps.
-- [Step 3 validation](docs/step3_validation.json): metric checks and proof that source-table fingerprints are unchanged.
+- Step 3 validation (`docs/step3_validation.json`, generated locally): metric checks and proof that source-table fingerprints are unchanged.
 - [Metric SQL](sql/metrics.sql) and [analysis queries](sql/analysis_queries.sql).
 - [Project status](project_status.json): the eight steps and the approval gate.
 
@@ -86,6 +86,6 @@ This pilot supports India's historical supplier charts and sourced equipment pag
 
 Step 2 loaded the records into SQL with source references, estimate flags, missing-value statuses and reviewed identity mappings. Step 3 adds supplier shares, top-three concentration, HHI, percentage-point changes and supplier-mix distance. All 18 automated tests, 14 base-build checks and 12 metric checks pass. The documented field conflicts remain open; cleaning does not turn uncertain source claims into confirmed facts.
 
-The local website and 3D equipment viewer are implemented. Step 5 now includes experimental ML insights for India, Russia and the US. See [Step 5 model and validation](docs/step5_ml.md) for reproduction, temporal evaluation and limitations. Step 6 now compares 80 qualified country/territory supplier profiles using a newly collected global 2021–2025 SIPRI register and unsupervised nearest neighbors. See [Step 6 methodology and validation](docs/step6_similarity.md). Step 7 (broader integration and testing) awaits approval.
+The local website and 3D equipment viewer are implemented. Step 5 now includes experimental ML insights for India, Russia and the US. See [Step 5 model and validation](docs/step5_ml.md) for reproduction, temporal evaluation and limitations. Step 6 now compares 80 qualified country/territory supplier profiles using a newly collected global 2021–2025 SIPRI register and unsupervised nearest neighbors. See [Step 6 methodology and validation](docs/step6_similarity.md). Step 7 local integration and responsive-browser checks are complete; see [validation and limitations](docs/step7_validation.md). Step 8 awaits approval.
 
 The downloaded source files retain their publishers' rights. Raw snapshots are excluded by `.gitignore`; raw data files are not included in this public repository. Review the [SIPRI reuse terms](https://www.sipri.org/about/terms-and-conditions) before including data in a public deployment.

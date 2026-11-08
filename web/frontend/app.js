@@ -212,7 +212,7 @@ async function loadLibrary(){
 
 const iso={jordan:400,austria:40,belgium:56,portugal:620,greece:300,pakistan:586,romania:642,serbia:688,slovakia:703,new_zealand:554,iran:364,north_korea:408,china:156,turkiye:792,belarus:112,sweden:752,norway:578,finland:246,japan:392,singapore:702,taiwan:158,india:356,russia:643,france:250,israel:376,united_states:840,united_kingdom:826,germany:276,south_korea:410,ukraine:804,uzbekistan:860,italy:380,spain:724,south_africa:710,switzerland:756,canada:124,netherlands:528,denmark:208,australia:36,brazil:76,kyrgyzstan:417,poland:616,czechia:203};
 
-async function drawMap(suppliers){
+async function drawMap(suppliers,requestToken){
 
   if(!worldPromise)worldPromise=fetch('/static/world.json').then(r=>{if(!r.ok)throw new Error('Map geometry could not be loaded.');return r.json();});
 
@@ -226,6 +226,7 @@ async function drawMap(suppliers){
 
   if(!indiaPromise)indiaPromise=fetch('/static/india-soi-display.json').then(r=>{if(!r.ok)throw new Error('India geometry could not be loaded.');return r.json();});
   const officialIndia=await indiaPromise;
+  if(requestToken!==overviewRequest)return;
 
   const shapes=collection.features.filter(f=>Number(f.id)!==356).map(f=>`<path data-country-id="${f.id}" d="${path(f)}" class="map-country ${Number(f.id)===iso[recipientId]?'recipient-country':ids.has(Number(f.id))?'supplier-country':''}"><title>${esc(f.properties.name)}</title></path>`).join('');
 
@@ -274,6 +275,7 @@ async function drawMap(suppliers){
 
 
 function enableCountryClicks(suppliers){
+  const installedOverview=overviewRequest;
   $('#network-map').dispatchEvent(new Event('mapcontentchange'));
   let panel=$('#country-connection');
   if(!panel){panel=document.createElement('section');panel.id='country-connection';panel.style.padding='20px';$('#network-map').after(panel);}
@@ -294,10 +296,10 @@ function enableCountryClicks(suppliers){
       if(!supplier||!supplier.recorded_tiv_million){panel.innerHTML=`<h3>${esc(name)} → ${recipientNames[recipientId]}</h3><p>No recorded transfer volume in the selected period in this dataset.</p>`;return;}
       panel.innerHTML=`<h3>${esc(supplier.supplier)} → ${recipientNames[recipientId]}</h3><p>${pct(supplier.share_percent)} of import TIV · ${fmt(supplier.recorded_tiv_million,2)} million TIV · ${esc($('#supplier-period').selectedOptions[0].text)}</p><div class="country-equipment">Loading equipment…</div>`;
       if(recipientId!=='india'){panel.querySelector('.country-equipment').textContent='Supplier volumes are available. Equipment-level records for this recipient have not yet been collected.';return;}
-      try{const data=await api(`/api/equipment?supplier=${encodeURIComponent(supplier.supplier_id)}`);if(token!==requestId)return;
+      try{const data=await api(`/api/equipment?supplier=${encodeURIComponent(supplier.supplier_id)}`);if(token!==requestId||installedOverview!==overviewRequest)return;
         panel.querySelector('.country-equipment').innerHTML='<p>Equipment across the full 2010–2025 snapshot. Sourced equipment photos. Variant or family photos are identified in each caption.</p><div class="weapon-photo-grid">'+data.items.sort((a,b)=>Number(!!equipmentPicture(b).url)-Number(!!equipmentPicture(a).url)).map(equipmentPhotoCard).join('')+'</div>';
         panel.querySelectorAll('[data-record]').forEach(b=>b.addEventListener('click',()=>openEquipmentDetails(b.dataset.record)));
-      }catch(error){if(token===requestId)panel.querySelector('.country-equipment').textContent=error.message;}
+      }catch(error){if(token===requestId&&installedOverview===overviewRequest&&panel.querySelector('.country-equipment'))panel.querySelector('.country-equipment').textContent=error.message;}
     }
     el.addEventListener('click',select);el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();select();}});
   });
@@ -333,6 +335,7 @@ function timeline(rows){
 async function loadOverview(){
 
   const token=++overviewRequest;clearError();
+  $('#supplier-metrics').textContent='Loading supplier data...';$('#supplier-ranking').innerHTML='';$('#timeline-chart').innerHTML='';$('#network-map').innerHTML='';if($('#country-connection'))$('#country-connection').textContent='Choose a country after the map loads.';
 
   try{const data=await api(`/api/overview?recipient=${recipientId}&period=${encodeURIComponent($('#supplier-period').value)}`);if(token!==overviewRequest)return;const s=data.summary;
 
@@ -340,9 +343,10 @@ async function loadOverview(){
 
     $('#supplier-metrics').innerHTML=metric('Import volume',fmt(s.total_tiv_million),'Recorded deliveries','million TIV')+metric('Largest supplier share',pct(s.top_supplier_share*100),s.top_suppliers)+metric('Top 3 suppliers',pct(s.top_three_share*100),'Share of recorded import TIV')+metric('Supplier concentration',fmt(s.hhi,3),'HHI · 0 to 1');
 
+    const top=data.suppliers.filter(r=>r.recorded_tiv_million>0).slice(0,4);Object.keys(palette).forEach(k=>delete palette[k]);top.forEach((r,i)=>{palette[r.supplier_id]=['#b5c08a','#75a8bb','#7ba89a','#edb948'][i];named[r.supplier_id]=r.supplier;});
     $('#supplier-ranking').innerHTML=data.suppliers.filter(r=>r.recorded_tiv_million>0).map(r=>`<div class="ranking-row"><div class="rank-label"><strong>${esc(r.supplier)}</strong><span>${pct(r.share_percent)}</span></div><div class="rank-track"><div class="rank-bar" style="width:${r.share_percent}%;background:${palette[r.supplier_id]||'#718264'}"></div></div></div>`).join('');
 
-    const top=data.suppliers.filter(r=>r.recorded_tiv_million>0).slice(0,4);Object.keys(palette).forEach(k=>delete palette[k]);top.forEach((r,i)=>{palette[r.supplier_id]=['#b5c08a','#75a8bb','#7ba89a','#edb948'][i];named[r.supplier_id]=r.supplier;});timeline(data.timeline);await drawMap(data.suppliers);enableCountryClicks(data.suppliers);
+    timeline(data.timeline);await drawMap(data.suppliers,token);if(token!==overviewRequest)return;enableCountryClicks(data.suppliers);
 
   }catch(error){if(token===overviewRequest)showError(error);}
 
@@ -412,7 +416,7 @@ function route(){
 
   if(meta){if(page==='suppliers')loadOverview();if(page==='compare')loadCompare();if(page==='sources')loadSources();if(page==='insights')loadInsights();if(page==='similarity')loadSimilarity();}
 
-  if(page!=='explorer')document.title=`${({suppliers:'Supplier network',compare:'Compare periods',sources:'Sources',insights:'ML insights',similarity:'Similar countries'})[page]} · ArmsFlow`;
+  document.title=`${({explorer:'Weapons explorer',suppliers:'Supplier network',compare:'Compare periods',sources:'Sources',insights:'ML insights',similarity:'Similar countries'})[page]} · ArmsFlow`;
 
 }
 
@@ -423,8 +427,8 @@ async function init(){
   try{
 
     meta=await api('/api/meta');
-    const chooser=document.createElement('select');chooser.id='recipient-select';chooser.setAttribute('aria-label','Recipient country');chooser.innerHTML=Object.entries(recipientNames).map(([id,name])=>`<option value="${id}">${name}</option>`).join('');$('#supplier-period').parentElement.before(chooser);
-    const scope=document.createElement('p');scope.id='recipient-scope';scope.className='data-footnote';$('#supplier-metrics').before(scope);
+    const chooser=document.createElement('select');chooser.id='recipient-select';chooser.setAttribute('aria-label','Recipient country');chooser.innerHTML=Object.entries(recipientNames).map(([id,name])=>`<option value="${id}">${name}</option>`).join('');const recipientLabel=document.createElement('label');recipientLabel.className='select-label';recipientLabel.append('Recipient country',chooser);$('#supplier-period').parentElement.before(recipientLabel);
+    const scope=document.createElement('p');scope.id='recipient-scope';scope.className='data-footnote';$('#supplier-metrics').before(scope);scope.textContent='India: delivery-register precision.';
     chooser.addEventListener('change',()=>{recipientId=chooser.value;$('#network-map').setAttribute('aria-label',`World map showing suppliers to ${recipientNames[recipientId]}`);$('#view-suppliers .map-panel h2').textContent=`Suppliers to ${recipientNames[recipientId]}`;scope.textContent=recipientId==='india'?'India: delivery-register precision.':'SIPRI rounded annual TIV, 2010–2025. Blank cells mean no identified deliveries; rounded zeros may represent small transfers. Equipment explorer and period comparison remain India-only.';loadOverview();});$('#equipment-count').textContent=meta.counts.equipment;
 
     $('#library-category').innerHTML+=[...meta.categories].map(c=>`<option value="${esc(c.category)}">${esc(c.category)} (${c.count})</option>`).join('');

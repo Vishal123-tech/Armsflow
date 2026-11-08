@@ -4,6 +4,7 @@ const names={india:'India',russia:'Russia',united_states:'United States'};
 export async function loadInsights(){
   const id=++requestId,content=document.querySelector('#ml-results');
   content.textContent='Loading historical review...';
+  document.querySelector('#ml-summary').innerHTML='';document.querySelector('#ml-method').innerHTML='';
   try{
     const recipient=document.querySelector('#ml-recipient').value;
     const year=document.querySelector('#ml-year').value;

@@ -223,6 +223,6 @@ def create_app(database=None):
     def sources():
         return jsonify(sources=rows("SELECT source_id,publisher,title,url,retrieved_date FROM source_snapshot ORDER BY source_id"),
                        issues=rows("SELECT issue_id,field_name,description,status FROM quality_issue ORDER BY issue_id"),
-                       models=MODELS,rights="Source material retains its publisher's rights. This is a local research pilot.")
+                       models=MODELS,rights="Information from the Stockholm International Peace Research Institute (SIPRI), https://www.sipri.org/databases/armstransfers. Non-commercial educational research demonstration; source material retains its publisher's rights.")
 
     return app

@@ -18,6 +18,7 @@ function compare(country){
 export async function loadSimilarity(){
   const id=++requestId,host=document.querySelector('#similarity-matches'),select=document.querySelector('#similarity-recipient');
   host.textContent='Comparing supplier profiles...';
+  document.querySelector('#similarity-summary').innerHTML='';document.querySelector('#similarity-method').innerHTML='';
   document.querySelector('#similarity-comparison').innerHTML='';
   try{
     const response=await fetch('/api/similarity?recipient='+encodeURIComponent(select.value||'India'));

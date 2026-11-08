@@ -1,0 +1,11 @@
+{
+  "sha256": "72c4be99a1c24cbbde6a0fc3ca442a6b96f1a236231cb6faee1dc1151dbcfe18",
+  "files": [
+    "armsflow.duckdb",
+    "additional_recipients.json",
+    "ml_insights.json",
+    "supplier_similarity.json"
+  ],
+  "source": "SIPRI Arms Transfers Database; snapshots collected 6\u20137 November 2026",
+  "purpose": "Non-commercial educational research demonstration; source rights retained"
+}

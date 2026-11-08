@@ -1,9 +1,9 @@
 {
   "project": "ArmsFlow",
-  "updated_date": "2026-11-07",
+  "updated_date": "2026-11-08",
   "user_instruction": "Ask before moving to each next step.",
-  "current_step": 6,
-  "approval_required_for_next_step": 7,
+  "current_step": 7,
+  "approval_required_for_next_step": 8,
   "steps": [
     {
       "number": 1,
@@ -45,7 +45,8 @@
     {
       "number": 7,
       "name": "Integrate and test",
-      "status": "not_started"
+      "status": "complete_local_validation",
+      "scope": "32 automated tests and 236 API responses passed; six routes checked at 390x844 browser viewport; desktop map checked; physical-device and production deployment testing remain outside this stage."
     },
     {
       "number": 8,
