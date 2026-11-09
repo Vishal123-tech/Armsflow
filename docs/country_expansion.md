@@ -32,3 +32,5 @@ The runtime archive includes focused-country records and spending JSON, not orig
 ## Validation
 
 All 36 tests passed. Eight focused/web tests passed again after the map status fix. Tests compare country totals and equipment identities against the raw export, verify recipient isolation and missing/estimated values, and preserve the India pilot checks. Browser checks covered Pakistan → China → equipment details, Ukraine's 273-record library and recipient-specific detail, North Korea's empty period, and a 390px mobile viewport with no horizontal overflow.
+
+Published to https://armsflow-di1q.onrender.com on 9 November 2026 from commit `a8c0e1e`. Render build and health checks passed. Live China selection showed its supplier mix, estimated spending and Russia-to-China equipment records; no browser console errors were captured. [Live screenshot](country-expansion-live.png).
