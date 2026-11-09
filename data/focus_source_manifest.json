@@ -1,0 +1,69 @@
+{
+  "source": {
+    "publisher": "SIPRI",
+    "title": "Global annual delivery register, 2010\u20132025",
+    "url": "https://armstransfers.sipri.org/ArmsTransfer/TransferRegister",
+    "retrieved_date": "2026-11-08",
+    "sha256": "91d0385aff1ea2f3407dbb5e3bbd708dd3ba65983377d0741625f9bff06bb744",
+    "years": [
+      2010,
+      2025
+    ],
+    "annual_deliveries": true,
+    "only_deliveries_in_range": true
+  },
+  "global_rows": 14877,
+  "india_reconciled": true,
+  "countries": {
+    "india": {
+      "equipment": 149,
+      "delivery_rows": 782,
+      "tiv_million": 48200.11
+    },
+    "united_states": {
+      "equipment": 72,
+      "delivery_rows": 344,
+      "tiv_million": 12336.0
+    },
+    "russia": {
+      "equipment": 31,
+      "delivery_rows": 73,
+      "tiv_million": 1533.6
+    },
+    "united_kingdom": {
+      "equipment": 63,
+      "delivery_rows": 207,
+      "tiv_million": 8621.94
+    },
+    "france": {
+      "equipment": 37,
+      "delivery_rows": 129,
+      "tiv_million": 1806.15
+    },
+    "china": {
+      "equipment": 36,
+      "delivery_rows": 304,
+      "tiv_million": 16350.95
+    },
+    "pakistan": {
+      "equipment": 132,
+      "delivery_rows": 517,
+      "tiv_million": 17592.03
+    },
+    "israel": {
+      "equipment": 39,
+      "delivery_rows": 155,
+      "tiv_million": 7232.74
+    },
+    "north_korea": {
+      "equipment": 1,
+      "delivery_rows": 1,
+      "tiv_million": 0.5
+    },
+    "ukraine": {
+      "equipment": 273,
+      "delivery_rows": 692,
+      "tiv_million": 15057.16
+    }
+  }
+}

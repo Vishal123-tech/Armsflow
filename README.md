@@ -38,7 +38,11 @@ Open http://127.0.0.1:8000. The server runs locally; publishing this GitHub repo
 
 ![Supplier profile comparison](docs/similar-countries.png)
 
-## What has been collected
+## Expanded country coverage
+
+The supplier network and equipment library cover ten countries, with quick access to nine nuclear-armed states and Ukraine as an additional country. There are 833 recipient-specific equipment entries and military spending series for 2010–2025. Nuclear status is contextual: the transfers shown are major conventional weapons. [Sources, reproduction and limitations](docs/country_expansion.md).
+
+## Original India pilot collection
 
 The original files were downloaded on **6 November 2026** from SIPRI, India's Ministry of Defence/PIB and Dassault Aviation. All nine files are preserved without edits in `data/raw/`.
 

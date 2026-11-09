@@ -1,6 +1,6 @@
 {
   "project": "ArmsFlow",
-  "updated_date": "2026-11-08",
+  "updated_date": "2026-11-09",
   "user_instruction": "Ask before moving to each next step.",
   "current_step": 8,
   "approval_required_for_next_step": null,
@@ -55,5 +55,13 @@
       "scope": "Public Render Free deployment verified with health endpoint, supplier map, equipment details, 3D explorer, ML insights and similarity profiles. Portfolio walkthrough documented. Free-tier cold starts apply."
     }
   ],
-  "deployment_url": "https://armsflow-di1q.onrender.com"
+  "deployment_url": "https://armsflow-di1q.onrender.com",
+  "country_expansion": {
+    "countries": 10,
+    "featured_nuclear_armed_states": 9,
+    "recipient_equipment_entries": 833,
+    "delivery_rows": 3204,
+    "spending_measures": 480,
+    "validation": "36 automated tests; desktop and narrow-viewport browser checks passed"
+  }
 }

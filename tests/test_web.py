@@ -16,12 +16,12 @@ class WebTests(unittest.TestCase):
  def test_filters(self):
   self.assertEqual(self.client.get('/api/equipment?q=Rafale').json['count'],1)
   self.assertEqual(self.client.get('/api/equipment?q=nonexistentxyz').json['count'],0)
-  for p in ['/api/overview?recipient=china','/api/overview?period=bad','/api/compare?before=2021-2025&after=2011-2015']:
+  for p in ['/api/overview?recipient=invalid_country','/api/overview?period=bad','/api/compare?before=2021-2025&after=2011-2015']:
    self.assertEqual(self.client.get(p).status_code,400)
   self.assertEqual(self.client.get('/api/equipment/missing').status_code,404)
  def test_metrics(self):
   s=self.client.get('/api/overview').json['summary']
   self.assertAlmostEqual(s['total_tiv_million'],12665.76)
   self.assertAlmostEqual(s['top_supplier_share'],.39557831507939517)
-  self.assertEqual(len(self.client.get('/api/sources').json['sources']),9)
+  self.assertEqual(len(self.client.get('/api/sources').json['sources']),11)
 if __name__=='__main__': unittest.main()

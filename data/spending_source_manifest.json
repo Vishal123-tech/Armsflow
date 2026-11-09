@@ -1,0 +1,9 @@
+{
+  "publisher": "SIPRI",
+  "url": "https://www.sipri.org/databases/milex",
+  "download_url": "https://www.sipri.org/sites/default/files/SIPRI-Milex-data-1949-2025_v1.2.xlsx",
+  "retrieved_date": "2026-11-08",
+  "sha256": "6cc3a30b1064f9f02e60236667eef82e08cad42910ce630909d004ad2c398a9d",
+  "edition": "1949\u00e2\u20ac\u201c2025, v1.2",
+  "notes": "Calendar-year spending; not arms import expenditure. Workbook country footnotes apply. Unavailable cells are not zero."
+}

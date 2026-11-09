@@ -1,11 +1,13 @@
 {
-  "sha256": "72c4be99a1c24cbbde6a0fc3ca442a6b96f1a236231cb6faee1dc1151dbcfe18",
+  "sha256": "8768566f5895c2576a491a37d6290081acab3fec6b6335609db56ff765bae114",
   "files": [
     "armsflow.duckdb",
     "additional_recipients.json",
     "ml_insights.json",
-    "supplier_similarity.json"
+    "supplier_similarity.json",
+    "focus_countries.json",
+    "military_spending.json"
   ],
-  "source": "SIPRI Arms Transfers Database; snapshots collected 6\u20137 November 2026",
+  "source": "SIPRI Arms Transfers and Military Expenditure Databases; snapshots collected 6\u20138 November 2026",
   "purpose": "Non-commercial educational research demonstration; source rights retained"
 }

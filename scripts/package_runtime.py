@@ -23,9 +23,9 @@ def main():
         archive = destination / "runtime.zip"
         with zipfile.ZipFile(archive, "w", zipfile.ZIP_DEFLATED) as output:
             output.write(database, "armsflow.duckdb")
-            for name in ("additional_recipients.json", "ml_insights.json", "supplier_similarity.json"):
+            for name in ("additional_recipients.json", "ml_insights.json", "supplier_similarity.json", "focus_countries.json", "military_spending.json"):
                 output.write(ROOT / "data/processed" / name, name)
-        manifest = {"sha256": hashlib.sha256(archive.read_bytes()).hexdigest(), "files": ["armsflow.duckdb", "additional_recipients.json", "ml_insights.json", "supplier_similarity.json"], "source": "SIPRI Arms Transfers Database; snapshots collected 6–7 November 2026", "purpose": "Non-commercial educational research demonstration; source rights retained"}
+        manifest = {"sha256": hashlib.sha256(archive.read_bytes()).hexdigest(), "files": ["armsflow.duckdb", "additional_recipients.json", "ml_insights.json", "supplier_similarity.json", "focus_countries.json", "military_spending.json"], "source": "SIPRI Arms Transfers and Military Expenditure Databases; snapshots collected 6–8 November 2026", "purpose": "Non-commercial educational research demonstration; source rights retained"}
         (destination / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
         print(f"Packaged {archive.stat().st_size:,} bytes; original exports and raw-row tables excluded.")
 

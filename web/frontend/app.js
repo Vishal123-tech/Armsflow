@@ -34,7 +34,7 @@ let meta,viewer,currentRecord,recordRequest=0,overviewRequest=0,compareRequest=0
 
 let worldPromise,indiaPromise;
 let recipientId="india";
-const recipientNames={india:"India",russia:"Russia",united_states:"United States"};
+let recipientNames={india:"India",russia:"Russia",united_states:"United States"};
 
 
 
@@ -82,14 +82,14 @@ function equipmentPhotoCard(item){
 }
 
 let detailRequest=0;
-async function openEquipmentDetails(id){
+async function openEquipmentDetails(id,recipient="india"){
   let dialog=$('#equipment-details');
   if(!dialog){dialog=document.createElement('dialog');dialog.id='equipment-details';dialog.setAttribute('aria-labelledby','detail-title');document.body.append(dialog);}
   const token=++detailRequest;
   dialog.innerHTML='<div class="dialog-heading"><h2 id="detail-title">Equipment details</h2><button class="icon-button detail-close" aria-label="Close weapon details">×</button></div><div class="detail-body">Loading source records…</div>';
   dialog.querySelector('.detail-close').onclick=()=>dialog.close();if(!dialog.open)dialog.showModal();
   try{
-    const item=await api(`/api/equipment/${encodeURIComponent(id)}`);if(token!==detailRequest)return;
+    const item=await api(`/api/equipment/${encodeURIComponent(id)}?recipient=${encodeURIComponent(recipient)}`);if(token!==detailRequest)return;
     $('#detail-title').textContent=cleanName(item.designation);
     const picture=equipmentPicture(item);
     const flag=value=>value===true?'Estimated':value===false?'Not flagged':'Unspecified';
@@ -192,7 +192,7 @@ async function featured(){
 
 async function loadLibrary(){
 
-  const token=++libraryRequest;const params=new URLSearchParams({q:$('#library-search').value,category:$('#library-category').value,models_only:$('#library-models').checked?'1':'0'});
+  const token=++libraryRequest;const params=new URLSearchParams({recipient:$("#library-recipient").value,q:$('#library-search').value,category:$('#library-category').value,models_only:$('#library-models').checked?'1':'0'});
 
   $('#library-status').textContent='Searching source records…';
 
@@ -202,7 +202,7 @@ async function loadLibrary(){
 
     $('#library-list').innerHTML=data.items.length?data.items.map(item=>`<button class="library-item" data-equipment="${item.equipment_id}"><span class="eyebrow">${esc(item.category)}</span><h3>${esc(cleanName(item.designation))}</h3><p>${esc(item.description)}</p><div class="library-item-bottom"><span>${esc(item.suppliers)} · ${fmt(item.delivered_quantity)} recorded</span>${item.model?'<span class="model-tag">3D VIEW ↗</span>':'<span>RECORD ↗</span>'}</div></button>`).join(''):'<p class="empty-state">No equipment matches these filters. Try another name or category.</p>';
 
-    $$('.library-item').forEach(button=>button.addEventListener('click',()=>{$('#library-dialog').close();openEquipmentDetails(button.dataset.equipment);}));
+    $$('.library-item').forEach(button=>button.addEventListener('click',()=>{$('#library-dialog').close();openEquipmentDetails(button.dataset.equipment,$("#library-recipient").value);}));
 
   }catch(error){$('#library-status').textContent=error.message;$('#library-list').innerHTML='';}
 
@@ -232,7 +232,7 @@ async function drawMap(suppliers,requestToken){
 
   const centers=new Map(collection.features.map(f=>[Number(f.id),projection(geoCentroid(f))]));
 
-  const india=projection(({india:[79,22],russia:[95,61],united_states:[-98,39]})[recipientId]);
+  const india=projection(({india:[79,22],russia:[95,61],united_states:[-98,39],united_kingdom:[-2,54],france:[2,47],china:[104,35],pakistan:[69,30],israel:[35,31],north_korea:[127,40],ukraine:[32,49]})[recipientId]);
   const labelPositions={356:[79,22],840:[-100,39],643:[95,61],250:[2,47],578:[10,64]};
   const occupied=[];
   const countryNames=collection.features.filter(f=>Number(f.id)!==iso[recipientId]).sort((a,b)=>path.area(b)-path.area(a)).map(f=>{
@@ -268,7 +268,7 @@ async function drawMap(suppliers,requestToken){
 
   }
 
-  $('#network-map').innerHTML=shapes+`<path data-country-id="356" d="${path(officialIndia)}" class="map-country ${recipientId==='india'?'recipient-country':''}"><title>India — Survey of India depiction</title></path>`+flows+countryNames+capitalNames+pins+`<circle cx="${india[0]}" cy="${india[1]}" r="14" fill="#edb94811" stroke="#edb94855"/><circle class="map-pin india" cx="${india[0]}" cy="${india[1]}" r="6"/><text class="map-label" x="${india[0]+12}" y="${india[1]+18}">${recipientNames[recipientId]}</text>`;
+  $('#network-map').innerHTML=shapes+`<path data-country-id="356" d="${path(officialIndia)}" class="map-country ${recipientId==='india'?'recipient-country':ids.has(356)?'supplier-country':''}"><title>India — Survey of India depiction</title></path>`+flows+countryNames+capitalNames+pins+`<circle cx="${india[0]}" cy="${india[1]}" r="14" fill="#edb94811" stroke="#edb94855"/><circle class="map-pin india" cx="${india[0]}" cy="${india[1]}" r="6"/><text class="map-label" x="${india[0]+12}" y="${india[1]+18}">${recipientNames[recipientId]}</text>`;
 
 }
 
@@ -295,10 +295,9 @@ function enableCountryClicks(suppliers){
       if((name.startsWith('India')&&recipientId==='india')||Number(el.dataset.countryId)===iso[recipientId]){panel.innerHTML=`<h3>${recipientNames[recipientId]} · recipient</h3><p>Choose a supplier country to inspect this connection.</p>`;return;}
       if(!supplier||!supplier.recorded_tiv_million){panel.innerHTML=`<h3>${esc(name)} → ${recipientNames[recipientId]}</h3><p>No recorded transfer volume in the selected period in this dataset.</p>`;return;}
       panel.innerHTML=`<h3>${esc(supplier.supplier)} → ${recipientNames[recipientId]}</h3><p>${pct(supplier.share_percent)} of import TIV · ${fmt(supplier.recorded_tiv_million,2)} million TIV · ${esc($('#supplier-period').selectedOptions[0].text)}</p><div class="country-equipment">Loading equipment…</div>`;
-      if(recipientId!=='india'){panel.querySelector('.country-equipment').textContent='Supplier volumes are available. Equipment-level records for this recipient have not yet been collected.';return;}
-      try{const data=await api(`/api/equipment?supplier=${encodeURIComponent(supplier.supplier_id)}`);if(token!==requestId||installedOverview!==overviewRequest)return;
+      try{const data=await api(`/api/equipment?recipient=${recipientId}&supplier=${encodeURIComponent(supplier.supplier_id)}`);if(token!==requestId||installedOverview!==overviewRequest)return;
         panel.querySelector('.country-equipment').innerHTML='<p>Equipment across the full 2010–2025 snapshot. Sourced equipment photos. Variant or family photos are identified in each caption.</p><div class="weapon-photo-grid">'+data.items.sort((a,b)=>Number(!!equipmentPicture(b).url)-Number(!!equipmentPicture(a).url)).map(equipmentPhotoCard).join('')+'</div>';
-        panel.querySelectorAll('[data-record]').forEach(b=>b.addEventListener('click',()=>openEquipmentDetails(b.dataset.record)));
+        panel.querySelectorAll('[data-record]').forEach(b=>b.addEventListener('click',()=>openEquipmentDetails(b.dataset.record,recipientId)));
       }catch(error){if(token===requestId&&installedOverview===overviewRequest&&panel.querySelector('.country-equipment'))panel.querySelector('.country-equipment').textContent=error.message;}
     }
     el.addEventListener('click',select);el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();select();}});
@@ -335,18 +334,21 @@ function timeline(rows){
 async function loadOverview(){
 
   const token=++overviewRequest;clearError();
-  $('#supplier-metrics').textContent='Loading supplier data...';$('#supplier-ranking').innerHTML='';$('#timeline-chart').innerHTML='';$('#network-map').innerHTML='';if($('#country-connection'))$('#country-connection').textContent='Choose a country after the map loads.';
+  $('#country-spending').textContent='Loading spending context...';$('#supplier-metrics').textContent='Loading supplier data...';$('#supplier-ranking').innerHTML='';$('#timeline-chart').innerHTML='';$('#network-map').innerHTML='';if($('#country-connection'))$('#country-connection').textContent='Choose a country after the map loads.';
 
   try{const data=await api(`/api/overview?recipient=${recipientId}&period=${encodeURIComponent($('#supplier-period').value)}`);if(token!==overviewRequest)return;const s=data.summary;
+    const spending=data.spending, latest=spending.series.at(-1);
+    const budgetValue=(r,key,digits=1)=>r[key]==null?'Unavailable':(r[key+'_status']==='estimate'?'≈ ':r[key+'_status']==='highly_uncertain'?'Highly uncertain: ':'')+fmt(r[key],digits);
+    $('#country-spending').innerHTML=`<div class="panel-heading"><h2>${esc(recipientNames[recipientId])} · military spending</h2><a href="${esc(spending.source.url)}" target="_blank" rel="noopener">SIPRI source ↗</a></div><p><strong>2025: ${budgetValue(latest,'current_usd_million')} million current US$</strong> · ${latest.gdp_percent==null?'GDP share unavailable':budgetValue(latest,'gdp_percent')+'% of GDP'}</p><p class="muted small">Total military spending, not weapons-import spending. Separate from TIV. ≈ denotes a SIPRI estimate; unavailable values are not zero. Country footnotes are in the source workbook.</p><details><summary>View annual spending, 2010–2025</summary><div class="table-scroll"><table><thead><tr><th>Year</th><th>Current US$ million</th><th>Constant 2024 US$ million</th><th>% GDP</th></tr></thead><tbody>${spending.series.map(r=>`<tr><td>${r.year}</td><td>${budgetValue(r,'current_usd_million')}</td><td>${budgetValue(r,'constant_2024_usd_million')}</td><td>${budgetValue(r,'gdp_percent')}</td></tr>`).join('')}</tbody></table></div></details>`;
 
-    if(s.metric_status!=='ok')throw new Error('Complete supplier metrics are not available for this period.');
+    if(!['ok','no_recorded_imports'].includes(s.metric_status))throw new Error('Complete supplier metrics are not available for this period.');
 
-    $('#supplier-metrics').innerHTML=metric('Import volume',fmt(s.total_tiv_million),'Recorded deliveries','million TIV')+metric('Largest supplier share',pct(s.top_supplier_share*100),s.top_suppliers)+metric('Top 3 suppliers',pct(s.top_three_share*100),'Share of recorded import TIV')+metric('Supplier concentration',fmt(s.hhi,3),'HHI · 0 to 1');
+    $('#supplier-metrics').innerHTML=metric('Import volume',fmt(s.total_tiv_million),'Recorded deliveries','million TIV')+metric('Largest supplier share',pct(s.top_supplier_share==null?null:s.top_supplier_share*100),s.top_suppliers)+metric('Top 3 suppliers',pct(s.top_three_share==null?null:s.top_three_share*100),'Share of recorded import TIV')+metric('Supplier concentration',fmt(s.hhi,3),'HHI · 0 to 1');
 
     const top=data.suppliers.filter(r=>r.recorded_tiv_million>0).slice(0,4);Object.keys(palette).forEach(k=>delete palette[k]);top.forEach((r,i)=>{palette[r.supplier_id]=['#b5c08a','#75a8bb','#7ba89a','#edb948'][i];named[r.supplier_id]=r.supplier;});
     $('#supplier-ranking').innerHTML=data.suppliers.filter(r=>r.recorded_tiv_million>0).map(r=>`<div class="ranking-row"><div class="rank-label"><strong>${esc(r.supplier)}</strong><span>${pct(r.share_percent)}</span></div><div class="rank-track"><div class="rank-bar" style="width:${r.share_percent}%;background:${palette[r.supplier_id]||'#718264'}"></div></div></div>`).join('');
 
-    timeline(data.timeline);await drawMap(data.suppliers,token);if(token!==overviewRequest)return;enableCountryClicks(data.suppliers);
+    if(!s.total_tiv_million)$('#supplier-ranking').innerHTML='<p class="empty-state">No recorded imports in this period. This does not describe current holdings or domestic production.</p>';timeline(data.timeline);await drawMap(data.suppliers,token);if(token!==overviewRequest)return;enableCountryClicks(data.suppliers);
 
   }catch(error){if(token===overviewRequest)showError(error);}
 
@@ -427,11 +429,16 @@ async function init(){
   try{
 
     meta=await api('/api/meta');
-    const chooser=document.createElement('select');chooser.id='recipient-select';chooser.setAttribute('aria-label','Recipient country');chooser.innerHTML=Object.entries(recipientNames).map(([id,name])=>`<option value="${id}">${name}</option>`).join('');const recipientLabel=document.createElement('label');recipientLabel.className='select-label';recipientLabel.append('Recipient country',chooser);$('#supplier-period').parentElement.before(recipientLabel);
-    const scope=document.createElement('p');scope.id='recipient-scope';scope.className='data-footnote';$('#supplier-metrics').before(scope);scope.textContent='India: delivery-register precision.';
-    chooser.addEventListener('change',()=>{recipientId=chooser.value;$('#network-map').setAttribute('aria-label',`World map showing suppliers to ${recipientNames[recipientId]}`);$('#view-suppliers .map-panel h2').textContent=`Suppliers to ${recipientNames[recipientId]}`;scope.textContent=recipientId==='india'?'India: delivery-register precision.':'SIPRI rounded annual TIV, 2010–2025. Blank cells mean no identified deliveries; rounded zeros may represent small transfers. Equipment explorer and period comparison remain India-only.';loadOverview();});$('#equipment-count').textContent=meta.counts.equipment;
+    recipientNames=meta.countries;
+    const options='<optgroup label="Nuclear-armed states">'+meta.nuclear_armed_states.map(id=>`<option value="${id}">${esc(recipientNames[id])}</option>`).join('')+'</optgroup><optgroup label="Additional countries"><option value="ukraine">Ukraine</option></optgroup>';
+    $('#library-recipient').innerHTML=options;
+    $('#library-recipient').addEventListener('change',loadLibrary);
+    const chooser=document.createElement('select');chooser.id='recipient-select';chooser.setAttribute('aria-label','Recipient country');chooser.innerHTML=options;const recipientLabel=document.createElement('label');recipientLabel.className='select-label';recipientLabel.append('Recipient country',chooser);$('#supplier-period').parentElement.before(recipientLabel);
+    const scope=document.createElement('p');scope.id='recipient-scope';scope.className='data-footnote';$('#supplier-metrics').before(scope);scope.textContent='SIPRI major conventional-arms deliveries, 2010–2025. Nuclear status is context, not nuclear transfer data.';
+    const focus=document.createElement('section');focus.className='focus-countries panel';focus.innerHTML='<h2>Featured: nuclear-armed states</h2><p class="muted small">Nine states identified by SIPRI (2026). Conventional imports only; domestic production and nuclear arsenals are not measured here. <a href="'+meta.nuclear_status_source+'" target="_blank" rel="noopener">Classification source ↗</a></p><div class="focus-country-buttons">'+meta.nuclear_armed_states.map(id=>'<button type="button" class="button" data-recipient="'+id+'">'+esc(recipientNames[id])+'</button>').join('')+'</div>';scope.before(focus);focus.querySelectorAll('[data-recipient]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.recipient===recipientId)));focus.querySelectorAll('[data-recipient]').forEach(b=>b.addEventListener('click',()=>{chooser.value=b.dataset.recipient;chooser.dispatchEvent(new Event('change'));}));
+    chooser.addEventListener('change',()=>{recipientId=chooser.value;focus.querySelectorAll('[data-recipient]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.recipient===recipientId)));$('#network-map').setAttribute('aria-label',`World map showing suppliers to ${recipientNames[recipientId]}`);$('#view-suppliers .map-panel h2').textContent=`Suppliers to ${recipientNames[recipientId]}`;scope.textContent='SIPRI major conventional-arms deliveries, 2010–2025. Nuclear status is context, not nuclear transfer data. No records does not imply no weapons.';loadOverview();});$('#equipment-count').textContent=meta.counts.equipment;
 
-    $('#library-category').innerHTML+=[...meta.categories].map(c=>`<option value="${esc(c.category)}">${esc(c.category)} (${c.count})</option>`).join('');
+    $('#library-category').innerHTML+=[...meta.equipment_categories].map(c=>`<option value="${esc(c)}">${esc(c)}</option>`).join('');
 
     const p=meta.periods;const groups=[['five_year','Five-year periods'],['full','Full snapshot'],['annual','Annual periods'],['rolling_five_year','Other five-year windows']];
 

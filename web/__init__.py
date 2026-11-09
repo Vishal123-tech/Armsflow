@@ -5,6 +5,9 @@ from pathlib import Path
 import duckdb
 from flask import Flask, g, jsonify, render_template, request
 
+from .countries import COUNTRIES, NUCLEAR_STATES, NUCLEAR_SOURCE
+from .focus_data import spending, data as focus_dataset
+
 ROOT = Path(__file__).resolve().parents[1]
 MODELS = {
     "eq_8c235db6029020c94826": {"key":"rafale","label":"Delta-wing aircraft","credit":"Original illustrative exterior created for ArmsFlow"},
@@ -39,8 +42,8 @@ def create_app(database=None):
 
     def country():
         value=request.args.get("recipient","india")
-        if value not in ("india","russia","united_states"):
-            raise ValueError("Choose India, Russia or United States.")
+        if value not in COUNTRIES:
+            raise ValueError("Choose a supported recipient country.")
         return value
 
     def period():
@@ -87,7 +90,7 @@ def create_app(database=None):
     @app.get("/api/meta")
     def meta():
         return jsonify(
-            recipient={"id":"india","name":"India"}, coverage={"start":2010,"end":2025},
+            equipment_categories=sorted({i["category"] for c in focus_dataset()["countries"].values() for i in c["equipment"].values()}), countries=COUNTRIES, nuclear_armed_states=NUCLEAR_STATES, nuclear_status_source=NUCLEAR_SOURCE, recipient={"id":"india","name":"India"}, coverage={"start":2010,"end":2025},
             categories=rows("SELECT category,count(*) AS count FROM equipment GROUP BY category ORDER BY category"),
             periods=rows("SELECT * FROM analysis_period ORDER BY start_year,end_year"),
             comparisons=rows("SELECT * FROM analysis_comparison ORDER BY comparison_id"),
@@ -103,6 +106,10 @@ def create_app(database=None):
         supplier=request.args.get("supplier","")
         if len(query)>80:
             raise ValueError("Keep the search under 80 characters.")
+        if recipient != "india":
+            from .focus_data import equipment as focused_equipment
+            items=focused_equipment(recipient,query,category,supplier,request.args.get("models_only")=="1")
+            return jsonify(items=items,count=len(items),quantity_basis="Historical deliveries in 2010–2025")
         conditions=["t.recipient_id=?"]
         params=[recipient]
         if category:
@@ -135,7 +142,11 @@ def create_app(database=None):
 
     @app.get("/api/equipment/<equipment_id>")
     def equipment_detail(equipment_id):
-        country()
+        recipient=country()
+        if recipient!="india":
+            from .focus_data import detail
+            item=detail(recipient,equipment_id)
+            return jsonify(item) if item else (jsonify(error="Equipment record not found."),404)
         found=rows("SELECT * FROM equipment WHERE equipment_id=?",[equipment_id])
         if not found:
             return jsonify(error="Equipment record not found."),404
@@ -162,8 +173,8 @@ def create_app(database=None):
     def overview():
         recipient,p=country(),period()
         if recipient!="india":
-            from .recipient_data import overview as extra_overview
-            return jsonify(extra_overview(recipient,p))
+            from .focus_data import overview as extra_overview
+            return jsonify(**extra_overview(recipient,p),spending=spending(recipient))
         summary=rows("SELECT * FROM metric_period_summary WHERE recipient_id=? AND period_id=?",[recipient,p])[0]
         suppliers=rows("""SELECT s.supplier_id,e.display_label AS supplier,e.entity_type,s.recorded_tiv_million,s.share_percent,s.metric_status
             FROM metric_period_shares s JOIN entity e ON e.entity_id=s.supplier_id
@@ -171,7 +182,7 @@ def create_app(database=None):
         timeline=rows("""SELECT s.start_year AS year,s.supplier_id,e.display_label AS supplier,s.share_percent
             FROM metric_period_shares s JOIN entity e ON e.entity_id=s.supplier_id
             WHERE recipient_id=? AND period_kind='annual' ORDER BY start_year,stable_position""",[recipient])
-        return jsonify(summary=summary,suppliers=suppliers,timeline=timeline,units="millions of SIPRI TIV")
+        return jsonify(summary=summary,suppliers=suppliers,timeline=timeline,units="millions of SIPRI TIV",spending=spending(recipient))
 
     @app.get("/api/similarity")
     def similarity():
@@ -193,6 +204,8 @@ def create_app(database=None):
     def insights():
         import json
         recipient = country()
+        if recipient not in ("india", "russia", "united_states"):
+            raise ValueError("ML change review currently covers India, Russia and United States only.")
         year = request.args.get("year", "all")
         if year not in ("all", "2021", "2022", "2023", "2024", "2025"):
             raise ValueError("Choose a review year between 2021 and 2025.")
@@ -221,7 +234,8 @@ def create_app(database=None):
 
     @app.get("/api/sources")
     def sources():
-        return jsonify(sources=rows("SELECT source_id,publisher,title,url,retrieved_date FROM source_snapshot ORDER BY source_id"),
+        extra=[dict(source_id="sipri_global_register_2010_2025",publisher="SIPRI",title="Global delivery register, 2010–2025 (ten-country selection)",url="https://armstransfers.sipri.org/ArmsTransfer/TransferRegister",retrieved_date="2026-11-08"),dict(source_id="sipri_milex",publisher="SIPRI",title="Military Expenditure Database, 1949–2025 v1.2",url="https://www.sipri.org/databases/milex",retrieved_date="2026-11-08")]
+        return jsonify(sources=rows("SELECT source_id,publisher,title,url,retrieved_date FROM source_snapshot ORDER BY source_id")+extra,
                        issues=rows("SELECT issue_id,field_name,description,status FROM quality_issue ORDER BY issue_id"),
                        models=MODELS,rights="Information from the Stockholm International Peace Research Institute (SIPRI), https://www.sipri.org/databases/armstransfers. Non-commercial educational research demonstration; source material retains its publisher's rights.")
 
