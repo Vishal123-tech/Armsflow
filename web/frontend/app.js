@@ -1,3 +1,4 @@
+import { mountBases } from './bases.js';
 import { loadSimilarity, installSimilarity } from './similarity.js';
 import { loadInsights, installInsights } from './insights.js';
 import majorCities from './major-cities.json';
@@ -232,8 +233,10 @@ async function drawMap(suppliers,requestToken){
 
   const centers=new Map(collection.features.map(f=>[Number(f.id),projection(geoCentroid(f))]));
 
-  const india=projection(({india:[79,22],russia:[95,61],united_states:[-98,39],united_kingdom:[-2,54],france:[2,47],china:[104,35],pakistan:[69,30],israel:[35,31],north_korea:[127,40],ukraine:[32,49]})[recipientId]);
-  const labelPositions={356:[79,22],840:[-100,39],643:[95,61],250:[2,47],578:[10,64]};
+  // Use mainland anchors consistently; overseas territories skew centroids offshore.
+  const labelPositions={356:[79,22],840:[-98,39],643:[95,61],250:[2,47],578:[10,64],826:[-2,54],156:[104,35],586:[69,30],376:[35,31],408:[127,40],804:[32,49]};
+  for(const [id,point] of Object.entries(labelPositions))centers.set(Number(id),projection(point));
+  const india=centers.get(iso[recipientId]);
   const occupied=[];
   const countryNames=collection.features.filter(f=>Number(f.id)!==iso[recipientId]).sort((a,b)=>path.area(b)-path.area(a)).map(f=>{
     const point=labelPositions[Number(f.id)]?projection(labelPositions[Number(f.id)]):path.centroid(f);
@@ -270,6 +273,7 @@ async function drawMap(suppliers,requestToken){
 
   $('#network-map').innerHTML=shapes+`<path data-country-id="356" d="${path(officialIndia)}" class="map-country ${recipientId==='india'?'recipient-country':ids.has(356)?'supplier-country':''}"><title>India — Survey of India depiction</title></path>`+flows+countryNames+capitalNames+pins+`<circle cx="${india[0]}" cy="${india[1]}" r="14" fill="#edb94811" stroke="#edb94855"/><circle class="map-pin india" cx="${india[0]}" cy="${india[1]}" r="6"/><text class="map-label" x="${india[0]+12}" y="${india[1]+18}">${recipientNames[recipientId]}</text>`;
 
+  mountBases($('#network-map'),projection,recipientId,recipientNames);
 }
 
 
