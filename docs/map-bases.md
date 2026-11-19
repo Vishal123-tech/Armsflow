@@ -5,3 +5,5 @@ Eight curated examples across India, United States, United Kingdom, France, Isra
 Enable Show military bases & facilities in Supplier network, then click a cyan diamond or a facility name. Coverage can be restricted to the selected recipient. Details include the facility type, source date and public source link. Keyboard Enter/Space activates markers.
 
 Map fixes: shared mainland anchors for featured-country recipient and supplier markers (France previously used an offshore centroid); collision space reserved for connection labels; cached marker collections during zoom; pointer identity checks prevent unrelated touches from interrupting a drag.
+
+Explorer controls: search facility names, cities or countries; filter by facility type; clear filters. Selecting a list entry or marker highlights both in gold. Empty search results and unverified country coverage have distinct messages. Filter tests: node --test tests/base-filters.test.mjs (3 passing).
