@@ -217,5 +217,159 @@
     "license": "https://commons.wikimedia.org/wiki/File:Flickr_-_The_U.S._Army_-_FIM-92_Stinger_missile.jpg",
     "retrieved": "2026-11-07",
     "changes": "Wikimedia thumbnail; no additional editing"
+  },
+  "EPF": {
+    "src": "/static/equipment/intl-0d4a1739099f.jpg",
+    "alt": "USNS Spearhead; representative EPF class photograph",
+    "caption": "USNS Spearhead; representative EPF class photograph",
+    "credit": "US Navy \u00b7 Public domain",
+    "url": "https://commons.wikimedia.org/wiki/File:USNS_Spearhead_(JHSV-1)_-_6.jpg",
+    "license": "https://commons.wikimedia.org/wiki/File:USNS_Spearhead_(JHSV-1)_-_6.jpg",
+    "title": "File:USNS Spearhead (JHSV-1) - 6.jpg",
+    "retrieved": "2026-11-20",
+    "changes": "Wikimedia thumbnail; no additional edits"
+  },
+  "Tide MARS": {
+    "src": "/static/equipment/intl-49cfe8e9841e.jpg",
+    "alt": "RFA Tidespring with JS Setogiri; Tide class photograph",
+    "caption": "RFA Tidespring with JS Setogiri; Tide class photograph",
+    "credit": "https://www.mod.go.jp/msdf/ \u6d77\u4e0a\u81ea\u885b\u968a \u00b7 CC BY 4.0",
+    "url": "https://commons.wikimedia.org/wiki/File:JS_Setogiri%EF%BC%88DD-156%EF%BC%89%EF%BC%86RFA_Tidespring%EF%BC%88A136%EF%BC%89.jpg",
+    "license": "https://creativecommons.org/licenses/by/4.0",
+    "title": "File:JS Setogiri\uff08DD-156\uff09\uff06RFA Tidespring\uff08A136\uff09.jpg",
+    "retrieved": "2026-11-20",
+    "changes": "Wikimedia thumbnail; no additional edits"
+  },
+  "Vulcano SH": {
+    "src": "/static/equipment/intl-2ed70b15d120.jpg",
+    "alt": "French fleet oiler Jacques Chevallier; Vulcano-derived design",
+    "caption": "French fleet oiler Jacques Chevallier; Vulcano-derived design",
+    "credit": "Rama \u00b7 CC BY-SA 3.0 fr",
+    "url": "https://commons.wikimedia.org/wiki/File:Jacques_Chevallier_A725-IMG_1202.JPG",
+    "license": "https://creativecommons.org/licenses/by-sa/3.0/fr/deed.en",
+    "title": "File:Jacques Chevallier A725-IMG 1202.JPG",
+    "retrieved": "2026-11-20",
+    "changes": "Wikimedia thumbnail; no additional edits"
+  },
+  "Kuznetsov": {
+    "src": "/static/equipment/intl-6acfd7da057a.jpg",
+    "alt": "Chinese carrier Liaoning; Kuznetsov-derived design",
+    "caption": "Chinese carrier Liaoning; Kuznetsov-derived design",
+    "credit": "Baycrest \u00b7 CC BY-SA 2.5",
+    "url": "https://commons.wikimedia.org/wiki/File:Aircraft_Carrier_Liaoning_CV-16.jpg",
+    "license": "https://creativecommons.org/licenses/by-sa/2.5",
+    "title": "File:Aircraft Carrier Liaoning CV-16.jpg",
+    "retrieved": "2026-11-20",
+    "changes": "Wikimedia thumbnail; no additional edits"
+  },
+  "F-22 SH": {
+    "src": "/static/equipment/intl-f025fdf37c69.jpg",
+    "alt": "Pakistani frigate PNS Zulfiquar; F-22P class photograph",
+    "caption": "Pakistani frigate PNS Zulfiquar; F-22P class photograph",
+    "credit": "DrHok \u00b7 CC BY-SA 4.0",
+    "url": "https://commons.wikimedia.org/wiki/File:PNS_Zulfiquar_Hamburg.jpg",
+    "license": "https://creativecommons.org/licenses/by-sa/4.0",
+    "title": "File:PNS Zulfiquar Hamburg.jpg",
+    "retrieved": "2026-11-20",
+    "changes": "Wikimedia thumbnail; no additional edits"
+  },
+  "Moawin": {
+    "src": "/static/equipment/intl-522c1a43225e.jpg",
+    "alt": "Pakistani replenishment ship PNS Moawin",
+    "caption": "Pakistani replenishment ship PNS Moawin",
+    "credit": "Itsjawad \u00b7 CC BY-SA 4.0",
+    "url": "https://commons.wikimedia.org/wiki/File:Moawin_pns17000.jpg",
+    "license": "https://creativecommons.org/licenses/by-sa/4.0",
+    "title": "File:Moawin pns17000.jpg",
+    "retrieved": "2026-11-20",
+    "changes": "Wikimedia thumbnail; no additional edits"
+  },
+  "Dolphin Batch-2": {
+    "src": "/static/equipment/intl-6f5d8d2a8fbd.jpg",
+    "alt": "INS Drakon; modified Dolphin-II variant, not identical to every vessel",
+    "caption": "INS Drakon; modified Dolphin-II variant, not identical to every vessel",
+    "credit": "Marco Kuntzsch \u00b7 CC BY-SA 3.0",
+    "url": "https://commons.wikimedia.org/wiki/File:INS_Drakon,_Israeli_submarine_of_German_submarine_class_Dolphin-AIP_(modified_version).jpg",
+    "license": "https://creativecommons.org/licenses/by-sa/3.0",
+    "title": "File:INS Drakon, Israeli submarine of German submarine class Dolphin-AIP (modified version).jpg",
+    "retrieved": "2026-11-20",
+    "changes": "Wikimedia thumbnail; no additional edits"
+  },
+  "MEKO PC-IN": {
+    "src": "/static/equipment/intl-38e6f28d2817.jpg",
+    "alt": "Israeli corvette INS Magen; Saar 6 class photograph",
+    "caption": "Israeli corvette INS Magen; Saar 6 class photograph",
+    "credit": "IDF Spokesperson's Unit photographer \u00b7 CC BY-SA 3.0",
+    "url": "https://commons.wikimedia.org/wiki/File:INS_Magen._II.jpg",
+    "license": "https://creativecommons.org/licenses/by-sa/3.0",
+    "title": "File:INS Magen. II.jpg",
+    "retrieved": "2026-11-20",
+    "changes": "Wikimedia thumbnail; no additional edits"
+  },
+  "Sandown": {
+    "src": "/static/equipment/intl-85c04417b254.jpg",
+    "alt": "Estonian Admiral Cowan; representative Sandown-class vessel, not a Ukrainian ship",
+    "caption": "Estonian Admiral Cowan; representative Sandown-class vessel, not a Ukrainian ship",
+    "credit": "WikedKentaur \u00b7 CC BY-SA 3.0",
+    "url": "https://commons.wikimedia.org/wiki/File:Admiral_Cowan,_2010.jpg",
+    "license": "https://creativecommons.org/licenses/by-sa/3.0",
+    "title": "File:Admiral Cowan, 2010.jpg",
+    "retrieved": "2026-11-20",
+    "changes": "Wikimedia thumbnail; no additional edits"
+  },
+  "F-35A Lightning-2": {
+    "src": "/static/equipment/intl-ad8622583500.jpg",
+    "alt": "US F-35A; representative type photograph, not recipient-specific",
+    "caption": "US F-35A; representative type photograph, not recipient-specific",
+    "credit": "Airman 1st Class Alexander Cook \u00b7 Public domain",
+    "url": "https://commons.wikimedia.org/wiki/File:F-35_Heritage_Flight_Team_performs_in_Bell_Fort_Worth_Alliance_AirShow.jpg",
+    "license": "https://commons.wikimedia.org/wiki/File:F-35_Heritage_Flight_Team_performs_in_Bell_Fort_Worth_Alliance_AirShow.jpg",
+    "title": "File:F-35 Heritage Flight Team performs in Bell Fort Worth Alliance AirShow.jpg",
+    "retrieved": "2026-11-20",
+    "changes": "Wikimedia thumbnail; no additional edits"
+  },
+  "F-35B Lightning-2": {
+    "src": "/static/equipment/intl-869f9cf2228a.jpg",
+    "alt": "British F-35B Lightning II",
+    "caption": "British F-35B Lightning II",
+    "credit": "Julian Herzog (Website) \u00b7 CC BY 4.0",
+    "url": "https://commons.wikimedia.org/wiki/File:Royal_Air_Force_Lockheed_Martin_F-35B_Lightning_II_ZM166_032_Royal_International_Air_Tattoo_2025_02.jpg",
+    "license": "https://creativecommons.org/licenses/by/4.0",
+    "title": "File:Royal Air Force Lockheed Martin F-35B Lightning II ZM166 032 Royal International Air Tattoo 2025 02.jpg",
+    "retrieved": "2026-11-20",
+    "changes": "Wikimedia thumbnail; no additional edits"
+  },
+  "Su-35S": {
+    "src": "/static/equipment/intl-dea60702c821.jpg",
+    "alt": "Russian Su-35; representative family photograph, not recipient-specific",
+    "caption": "Russian Su-35; representative family photograph, not recipient-specific",
+    "credit": "Oleg Belyakov \u00b7 CC BY-SA 3.0",
+    "url": "https://commons.wikimedia.org/wiki/File:Russian_Air_Force_Sukhoi_Su-35_Belyakov.jpg",
+    "license": "https://creativecommons.org/licenses/by-sa/3.0",
+    "title": "File:Russian Air Force Sukhoi Su-35 Belyakov.jpg",
+    "retrieved": "2026-11-20",
+    "changes": "Wikimedia thumbnail; no additional edits"
+  },
+  "M-113": {
+    "src": "/static/equipment/intl-7fa73acdc095.jpg",
+    "alt": "US M113; representative family photograph, exact variant unconfirmed",
+    "caption": "US M113; representative family photograph, exact variant unconfirmed",
+    "credit": "SPC Jackson \u00b7 Public domain",
+    "url": "https://commons.wikimedia.org/wiki/File:An_M113_armored_personnel_carrier_moves_into_action_during_Exercise_BRIM_FROST_89_DA-ST-90-01587.jpg",
+    "license": "https://commons.wikimedia.org/wiki/File:An_M113_armored_personnel_carrier_moves_into_action_during_Exercise_BRIM_FROST_89_DA-ST-90-01587.jpg",
+    "title": "File:An M113 armored personnel carrier moves into action during Exercise BRIM FROST 89 DA-ST-90-01587.jpg",
+    "retrieved": "2026-11-20",
+    "changes": "Wikimedia thumbnail; no additional edits"
+  },
+  "VT-4": {
+    "src": "/static/equipment/intl-eacc401597b7.jpg",
+    "alt": "NORINCO VT-4 at IDEX 2017; exhibition photograph",
+    "caption": "NORINCO VT-4 at IDEX 2017; exhibition photograph",
+    "credit": "Mztourist \u00b7 CC BY-SA 4.0",
+    "url": "https://commons.wikimedia.org/wiki/File:NORINCO_VT-4_at_IDEX_2017.jpg",
+    "license": "https://creativecommons.org/licenses/by-sa/4.0",
+    "title": "File:NORINCO VT-4 at IDEX 2017.jpg",
+    "retrieved": "2026-11-20",
+    "changes": "Wikimedia thumbnail; no additional edits"
   }
 }
